@@ -66,7 +66,7 @@ command or manual file path is required.
 -   `contrast_factor=1.2` --- adjusts contrast.
 -   `sharpness_factor=1.3` --- adjusts sharpness.
 
-# DocuFlow AI — Stage 3: PaddleOCR-VL 1.6 Integration
+# Stage 3: PaddleOCR-VL 1.6 Integration
 
 Stage 3 replaces the previous text-only `PaddleOCR` inference adapter with
 the complete **PaddleOCR-VL 1.6 document-parsing pipeline**. Stage 1 upload
