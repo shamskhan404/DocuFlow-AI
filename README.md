@@ -1,6 +1,3 @@
-# DocuFlow-AI
-AI powered document intelligence system for automated document processing, OCR, information extraction, and structured data generation.
-
 # Stage 1 — Local Document Upload
 
 1. Checks that the file exists and is not empty.
@@ -66,80 +63,10 @@ command or manual file path is required.
 -   `contrast_factor=1.2` --- adjusts contrast.
 -   `sharpness_factor=1.3` --- adjusts sharpness.
 
-# Stage 3: PaddleOCR-VL 1.6 Integration
+## Dependency
 
-Stage 3 replaces the previous text-only `PaddleOCR` inference adapter with
-the complete **PaddleOCR-VL 1.6 document-parsing pipeline**. Stage 1 upload
-and Stage 2 image/PDF preprocessing remain in place.
-
-## What changed
-
-- Uses `PaddleOCRVL(pipeline_version="v1.6")`.
-- Enables layout detection and vision-language recognition.
-- Converts PaddleOCR-VL reading-order blocks into DocuFlow's existing OCR
-  result format, so the layout adapter, invoice extractor, and SQLite
-  exporter continue to work.
-- Saves model-native JSON and Markdown results under `output/ocr/`.
-- Re-runs OCR for cached documents whose previous engine was not
-  `PaddleOCR-VL-1.6`. This prevents old PaddleOCR results from being
-  mistaken for new model output.
-- Keeps PDF page rendering and image preprocessing unchanged.
-
-### CPU installation (current default)
-
-The supplied `config/settings.json` uses CPU inference, matching the
-previous project configuration and avoiding VRAM pressure on a 6 GB GPU.
-
-```powershell
-python -m pip install paddlepaddle==3.2.1
-
-If PaddleOCR reports a missing optional document-parser dependency, run:
-
-```powershell
-python -m pip install -U "paddleocr[doc-parser]"
-```
-
-Do not install the CPU and GPU builds of PaddlePaddle in the same
-environment.
-
-## Run
-
-Put supported files in `input/`, then run:
-
-```powershell
-python main.py
-```
-
-On the first run, PaddleOCR-VL downloads its model assets. Keep an internet
-connection available until initialization and the first inference complete.
-
-## Output
-
-- `output/processed/` — preprocessed page images from Stage 2.
-- `output/ocr/` — PaddleOCR-VL JSON and Markdown parsing results.
-- `output/document_ai_v2.db` — structured invoice data and OCR layout.
-
-## Important notes
-
-- The first inference can take longer because model assets must be
-  downloaded and initialized.
-- PaddleOCR-VL returns layout blocks, not the same word-level detections
-  as the old `PaddleOCR` recognizer. DocuFlow adapts those blocks into its
-  existing layout format.
-- Invoice field extraction is still the current rule-based
-  `InvoiceExtractor`; this stage upgrades document parsing, not the
-  downstream invoice extraction logic.
-- Review OCR JSON/Markdown for each sample before evaluating invoice-field
-  accuracy. Do not assume every field is correct simply because inference
-  completed successfully.
-
-
+PDF rendering uses PyMuPDF. Install the project dependencies:
 
 ``` bash
 python -m pip install -r requirements.txt
 ```
-Active Development
-
-DocuFlow AI is being developed incrementally, with an emphasis on modular architecture, reliable document processing, and extensibility.
-
-The current implementation focuses on document ingestion and preprocessing. Additional AI capabilities and SaaS components will be introduced progressively.

@@ -1,0 +1,14 @@
+{
+    "project_name": "DocuFlow AI",
+    "ocr_model": "PaddleOCR-VL-1.6",
+    "pipeline_version": "v1.6",
+    "device": "cpu",
+    "cpu_threads": 6,
+    "enable_mkldnn": true,
+    "use_doc_orientation_classify": false,
+    "use_doc_unwarping": false,
+    "save_model_outputs": true,
+    "ocr_output_directory": "output/ocr",
+    "input_directory": "input",
+    "output_directory": "output"
+}

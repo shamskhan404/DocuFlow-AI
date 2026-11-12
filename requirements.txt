@@ -1,0 +1,18 @@
+# DocuFlow AI — PaddleOCR-VL 1.6
+# Recommended: Python 3.11 in a dedicated virtual environment.
+# Install the CPU PaddlePaddle build OR the GPU build, never both.
+
+# PaddleOCR-VL document parser (includes PaddleOCR doc-parser extras)
+paddlepaddle==3.2.1
+paddleocr[doc-parser]>=3.3.0,<4.0
+
+# Image processing
+Pillow
+opencv-python
+
+# PDF rendering and page extraction
+PyMuPDF>=1.24,<2.0
+
+# Configuration and numerical processing
+PyYAML
+numpy
